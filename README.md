@@ -35,13 +35,19 @@ Para rodar os testes observando o tempo:
     ./run-time-tests.sh param_a_variar
 
 `param_a_variar` pode ser `nodes`, `edges` ou `removed_nodes`
+
 nodes -> varia de 1000 a 1000 de 1000 em 1000
+
 edges -> varia de 1000 a 1000 de 1000 em 1000
+
 removed_nodes -> varia de 500 a 5000 de 500 em 500
 
 Enquanto um parâmetro varia, os outros permanecem constantes. Os valores constantes são:
+
 nodes -> 10000
+
 edges -> 1000
+
 removed_nodes -> 500
 
 ./run-all-time-tests.sh roda o script acima 10 vezes (para ser usado dps n cálculo do tempo médio)
