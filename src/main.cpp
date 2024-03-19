@@ -92,14 +92,11 @@ int main(int argc, char **argv) {
         union_find = improvedUf;
         final_output = output_file_improved;
     }
-    //FileWriter writer(final_output);
     while (reader.next_line(command)) {
-        // cout<<command<<endl;
         if(single_commands.find(command)!=single_commands.end()){
             reader.next_line(line);
             int node = stoi(line);
             int command_num = single_commands[command];
-            // cout<<line<<endl;
             switch (command_num){
                 case 0: 
                     add(naiveUf, improvedUf, union_find, isDebug, node);
@@ -119,7 +116,6 @@ int main(int argc, char **argv) {
         }
         else {
             reader.next_line(line);
-            // cout<<line<<endl;
             int index_a, index_b;
             istringstream iss(line);    
             iss >> index_a >> index_b;
@@ -139,6 +135,7 @@ int main(int argc, char **argv) {
             }
         }
     }
+    //Descomentar pra fazer a comparação dos resultados
     // string final_components = Utils().orderedMapText(union_find->getComponents());
     // writer.append_text(final_components);
     // writer.close();

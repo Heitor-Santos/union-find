@@ -1,5 +1,4 @@
 #include "union-find.h"
-#include "iostream"
 
 using namespace std;
 

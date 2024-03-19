@@ -41,9 +41,9 @@ function getTimeMetrics(){
             let origsTime = []
             let impsTime = [] 
             for(let folder=1;folder<=10;folder++){
-                let origFile = `./time_${option}_${folder}/original_${i*1000}_nodes_time`
+                let origFile = `time_results/time_${option}_${folder}/original_${i*1000}_nodes_time`
                 let origTime = extractTime(origFile);
-                let impFile = `./time_${option}_${folder}/improved_${i*1000}_nodes_time`
+                let impFile = `time_results/time_${option}_${folder}/improved_${i*1000}_nodes_time`
                 let impTime = extractTime(impFile);
                 origsTime.push(origTime);
                 impsTime.push(impTime);
@@ -59,7 +59,7 @@ function getTimeMetrics(){
             allResults.push(res);
         }
         
-        fs.writeFileSync(`${option}_time_sheet.csv`,parse(allResults, opts))
+        fs.writeFileSync(`time_results/${option}_time_sheet.csv`,parse(allResults, opts))
     }
 }
 
@@ -87,9 +87,9 @@ function getMemoryMetrics(){
             let origsTime = []
             let impsTime = [] 
             for(let folder=1;folder<=10;folder++){
-                let origFile = `./mem_${option}_${folder}/original_${i*1000}_nodes_time`
+                let origFile = `mem_results/mem_${option}_${folder}/original_${i*1000}_nodes_time`
                 let origTime = extractMemory(origFile);
-                let impFile = `./mem_${option}_${folder}/improved_${i*1000}_nodes_time`
+                let impFile = `mem_results/mem_${option}_${folder}/improved_${i*1000}_nodes_time`
                 let impTime = extractMemory(impFile);
                 origsTime.push(origTime);
                 impsTime.push(impTime);
@@ -105,9 +105,9 @@ function getMemoryMetrics(){
             allResults.push(res);
         }
         
-        fs.writeFileSync(`${option}_mem_sheet.csv`,parse(allResults, opts))
+        fs.writeFileSync(`mem_results/${option}_mem_sheet.csv`,parse(allResults, opts))
     }
 }
 
-//getTimeMetrics();
+getTimeMetrics();
 getMemoryMetrics();

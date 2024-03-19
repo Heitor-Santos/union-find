@@ -1,5 +1,4 @@
 #include "union-find.h"
-#include <iostream>
 
 using namespace std;
 
@@ -57,9 +56,7 @@ void ImprovedUnionFind::deleteElement(int index){
     uf[index]=nullptr;
     uf.erase(index);
     if(!node->isLeaf()){
-        // cout<<"1"<<endl;
         if(node->hasOnlyOneChild()){
-            // cout<<"11"<<endl;
             node->onlyChild()->setParent(node->getParent());
             node->removeFromParentChildren();
             node->addOnlyChildToParentChildren();
@@ -67,23 +64,16 @@ void ImprovedUnionFind::deleteElement(int index){
     }
 
     else{
-        // cout<<"111"<<endl;
         node->removeFromParentChildren();
         Node* parent = node->getParent();
         if(!node->isRoot() && parent->isLeaf()) {
             parent->setRank(0);
-            // cout<<"1111"<<endl;
         }
         if(!node->isRoot() && !parent->isOccupied()){
-            // cout<<"11111 "<<parent->getElement()<<endl;
             if(parent->hasOnlyOneChild()){
-                // cout<<"11111111111111 "<<parent->onlyChild()->getElement()<<endl;
-                // cout<<"22 "<<parent->onlyChild()->getParent()->getElement()<<endl;
                 parent->onlyChild()->setParent(parent->getParent());
                 parent->removeFromParentChildren();
                 parent->addOnlyChildToParentChildren();
-                // if(parent->onlyChild()->getParent()==nullptr)cout<<"nul pa"<<endl;
-                // else cout<<parent->onlyChild()->getParent()<<" <<<-----"<<endl;
             }
         }
         delete node;
@@ -97,10 +87,8 @@ unordered_map<int, set<int>> ImprovedUnionFind::getComponents(){
             Node* nodeRoot = findNode(pair.first); 
             int root = nodeRoot->getElement();
             int parent = pair.second->getParent() == nullptr ? -1 : pair.second->getParent()->getElement();
-            // cout<<pair.first<<" "<<root<<endl;
-            // cout<<pair.first<<" ->parent: "<<parent<<endl;
             if (components.find(root) == components.end()) {
-                components[root] = set<int>(); // Inicializa o conjunto se a chave não existir
+                components[root] = set<int>();
             }
             components[root].insert(pair.first);
         }
