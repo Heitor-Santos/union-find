@@ -65,33 +65,49 @@ function getTimeMetrics(){
 
 function extractMemory(file){
     let fileText = fs.readFileSync(file).toString();
-    return parseInt(fileText.split("\n")[1]);
+    let infos = fileText.split("==");
+    let heapUsage = infos.find(el=>el.startsWith(" total heap usage"));
+    //console.log(heapUsage)
+    let heapInfos = heapUsage.split(" ");
+    let heapBytes = heapInfos[heapInfos.length-4];
+    let totalHeap = heapBytes.replaceAll(',', '');
+    return parseInt(totalHeap)
+    //return parseInt(fileText.split("\n")[1]);
 }
+
+//extractMemory("./original_3000_nodes_time");
 
 
 function getMemoryMetrics(){
-    let opts = {fields: ['removed_nodes', 'original', 'improved']}
-    let allResults = []
-    for(let i=1;i<=10;i++){
-        let origsMem = []
-        let impsMem = [] 
-        for(let folder=1;folder<=10;folder++){
-            let origFile = `./mem_rem_nodes${folder}/original_${i*1000}_nodes_memory`
-            let origMem = extractMemory(origFile);
-            let impFile = `./mem_rem_nodes${folder}/improved_${i*1000}_nodes_memory`
-            let impMem = extractMemory(impFile);
-            origsMem.push(origMem);
-            impsMem.push(impMem);
-            //console.log(origTime, impTime);
+    const options=["nodes", "edges", "removed_nodes"];
+    for(let option of options){
+        let opts = {fields: [option, 'original', 'improved']}
+        let allResults = []
+        for(let i=1;i<=10;i++){
+            let origsTime = []
+            let impsTime = [] 
+            for(let folder=1;folder<=10;folder++){
+                let origFile = `./mem_${option}_${folder}/original_${i*1000}_nodes_time`
+                let origTime = extractMemory(origFile);
+                let impFile = `./mem_${option}_${folder}/improved_${i*1000}_nodes_time`
+                let impTime = extractMemory(impFile);
+                origsTime.push(origTime);
+                impsTime.push(impTime);
+                //console.log(origTime, impTime);
+            }
+            let avgOrigTime = origsTime.reduce((prev,curr)=>prev+curr,0)/10;
+            let avgImpTime = impsTime.reduce((prev,curr)=>prev+curr,0)/10;
+            console.log(avgOrigTime, avgImpTime)
+            let res=  {removed_nodes: i*500, original: avgOrigTime, improved: avgImpTime}
+            let value = i*1000;
+            if(option=="removed_nodes")value = i*500;
+            res[option]=value; 
+            allResults.push(res);
         }
-        let avgOrigMem = origsMem.reduce((prev,curr)=>prev+curr,0)/10;
-        let avgImpMem = impsMem.reduce((prev,curr)=>prev+curr,0)/10;
-        //console.log(avgOrigMem, avgImpMem)
-        let res=  {removed_nodes: i*500, original: avgOrigMem, improved: avgImpMem}
-        allResults.push(res);
+        
+        fs.writeFileSync(`${option}_mem_sheet.csv`,parse(allResults, opts))
     }
-    
-    fs.writeFileSync(`removed_nodes_memory_sheet.csv`,parse(allResults, opts))
 }
 
-getTimeMetrics();
+//getTimeMetrics();
+getMemoryMetrics();

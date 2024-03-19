@@ -92,7 +92,7 @@ int main(int argc, char **argv) {
         union_find = improvedUf;
         final_output = output_file_improved;
     }
-    FileWriter writer(final_output);
+    //FileWriter writer(final_output);
     while (reader.next_line(command)) {
         // cout<<command<<endl;
         if(single_commands.find(command)!=single_commands.end()){
@@ -139,8 +139,8 @@ int main(int argc, char **argv) {
             }
         }
     }
-    string final_components = Utils().orderedMapText(union_find->getComponents());
-    writer.append_text(final_components);
-    writer.close();
+    // string final_components = Utils().orderedMapText(union_find->getComponents());
+    // writer.append_text(final_components);
+    // writer.close();
     reader.close();
 }
