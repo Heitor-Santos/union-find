@@ -36,9 +36,9 @@ Para rodar os testes observando o tempo:
 
 `param_a_variar` pode ser `nodes`, `edges` ou `removed_nodes`
 
-nodes -> varia de 1000 a 1000 de 1000 em 1000
+nodes -> varia de 1000 a 10000 de 1000 em 1000
 
-edges -> varia de 1000 a 1000 de 1000 em 1000
+edges -> varia de 1000 a 10000 de 1000 em 1000
 
 removed_nodes -> varia de 500 a 5000 de 500 em 500
 
