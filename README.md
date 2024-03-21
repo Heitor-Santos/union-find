@@ -1,3 +1,4 @@
+
 # union-find
 ##  Compilação
 
@@ -15,14 +16,16 @@ Os valores de algorithm podem ser:
 
 ## Entrada
 O arquivo de entrada deve conter várias sequências da seguinte forma:
-add
-28
-add
-29
-union
-28 29
-delete
-28
+
+    add
+    28
+    add
+    29
+    union
+    28 29
+    delete
+    28
+
 ## Teste
 
     cd test
